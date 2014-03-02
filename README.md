@@ -6,10 +6,21 @@
  * Generic `byte[]` exchange, like [Android Host Card Emulation](http://developer.android.com/guide/topics/connectivity/nfc/hce.html)
 * JavaCard 2.2.2+, usage of Extended APDU encouraged
 * [HostApduService](https://developer.android.com/reference/android/nfc/cardemulation/HostApduService.html) proxy for Android
-* Applet management interface, not unlike [GlobalPlatform](https://github.com/martinpaljak/GlobalPlatform#globalplatform-from-openkms)
+* Includes all essential interfaces and abstract classes:
+  * `javacard.framework.*`
+  * `javacard.security.*`
+  * `javacardx.apdu.*`
+  * `javacardx.crypto.*`
 * Simple, thin and modular codebase to the finest extent possible.
   * Minimal one-liner pollution in `javacard*.*`. The only allowed import is from pro.javacard.vre.*;
-  * No Javadoc-s in `javacard*.*`. Go read the original API docs.
+  * No Javadoc-s in `javacard*.*`. Go read the original API docs. *([hint](http://www.win.tue.nl/pinpasjc/docs/apis/jc222/overview-summary.html))*
+* Implements JCSystem and APDU, Cipher and KeyBuilder
+* Applet management interface, not unlike [GlobalPlatform](https://github.com/martinpaljak/GlobalPlatform#globalplatform-from-openkms)
+* Future versions
+ * More Ciphers and Keys
+ * JavaCard 3.0.X features
+ * Multiple independent VJCRE instances in a single VM
+ * Saving and loading VM instances (real "virtual cards")
 
 # Usage
 
