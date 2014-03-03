@@ -22,7 +22,18 @@ public abstract class Cipher {
 	public static final byte ALG_AES_BLOCK_128_ECB_NOPAD = 14;
 	public static final byte ALG_RSA_PKCS1_OAEP = 15;
 	public static final byte ALG_KOREAN_SEED_ECB_NOPAD = 16;
-	public static final byte ALG_KOREAN_SEED_CBC_NOPAD	= 17;
+	public static final byte ALG_KOREAN_SEED_CBC_NOPAD = 17;
+	// 3.0.1
+	public static final byte ALG_AES_BLOCK_192_CBC_NOPAD = 18;
+	public static final byte ALG_AES_BLOCK_192_ECB_NOPAD = 19;
+	public static final byte ALG_AES_BLOCK_256_CBC_NOPAD = 20;
+	public static final byte ALG_AES_BLOCK_256_ECB_NOPAD = 21;
+	public static final byte ALG_AES_CBC_ISO9797_M1 = 22;
+	public static final byte ALG_AES_CBC_ISO9797_M2 = 23;
+	public static final byte ALG_AES_CBC_PKCS5 = 24;
+	public static final byte ALG_AES_ECB_ISO9797_M1 = 25;
+	public static final byte ALG_AES_ECB_ISO9797_M2 = 26;
+	public static final byte ALG_AES_ECB_PKCS5 = 27;
 	public static final byte MODE_DECRYPT = 1;
 	public static final byte MODE_ENCRYPT = 2;
 

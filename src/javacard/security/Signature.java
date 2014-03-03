@@ -36,6 +36,36 @@ public abstract class Signature {
 	public static final byte ALG_RSA_SHA_ISO9796_MR = 30;
 	public static final byte ALG_RSA_RIPEMD160_ISO9796_MR = 31;
 	public static final byte ALG_KOREAN_SEED_MAC_NOPAD = 32;
+
+	// 3.0.1
+	public static final byte ALG_ECDSA_SHA_256 = 33;
+	public static final byte ALG_ECDSA_SHA_384 = 34;
+	public static final byte ALG_AES_MAC_192_NOPAD = 35;
+	public static final byte ALG_AES_MAC_256_NOPAD = 36;
+	public static final byte ALG_ECDSA_SHA_224 = 37;
+	public static final byte ALG_ECDSA_SHA_512 = 38;
+	public static final byte ALG_RSA_SHA_224_PKCS1 = 39;
+	public static final byte ALG_RSA_SHA_256_PKCS1 = 40;
+	public static final byte ALG_RSA_SHA_384_PKCS1 = 41;
+	public static final byte ALG_RSA_SHA_512_PKCS1 = 42;
+	public static final byte ALG_RSA_SHA_224_PKCS1_PSS = 43;
+	public static final byte ALG_RSA_SHA_256_PKCS1_PSS = 44;
+	public static final byte ALG_RSA_SHA_384_PKCS1_PSS = 45;
+	public static final byte ALG_RSA_SHA_512_PKCS1_PSS = 46;
+	// 3.0.4
+	public static final byte ALG_DES_MAC4_ISO9797_1_M1_ALG3 = 47;
+	public static final byte ALG_DES_MAC8_ISO9797_1_M1_ALG3 = 48;
+
+	// 3.0.4
+	public static final byte SIG_CIPHER_AES_MAC128 = 6;
+	public static final byte SIG_CIPHER_DES_MAC4 = 1;
+	public static final byte SIG_CIPHER_DES_MAC8 = 2;
+	public static final byte SIG_CIPHER_DSA = 4;
+	public static final byte SIG_CIPHER_ECDSA = 5;
+	public static final byte SIG_CIPHER_HMAC = 7;
+	public static final byte SIG_CIPHER_KOREAN_SEED_MAC = 8;
+	public static final byte SIG_CIPHER_RSA = 3;
+
 	public static final byte MODE_SIGN = 1;
 	public static final byte MODE_VERIFY = 2;
 
@@ -53,5 +83,10 @@ public abstract class Signature {
 			CryptoException.throwIt(CryptoException.NO_SUCH_ALGORITHM);
 		}
 		return new vSignature(algorithm);
+	}
+	// 3.0.4
+	public static final Signature getInstance(byte messageDigestAlgorithm, byte cipherAlgorithm, byte paddingAlgorithm, boolean externalAccess) throws CryptoException {
+		CryptoException.throwIt(CryptoException.NO_SUCH_ALGORITHM);
+		return null;
 	}
 }

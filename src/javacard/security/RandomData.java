@@ -9,6 +9,7 @@ public abstract class RandomData {
 	protected RandomData() {}
 	public abstract void generateData(byte[] buffer, short offset, short length) throws CryptoException;
 	public abstract void setSeed(byte[] buffer, short offset, short length);
+
 	public static final RandomData getInstance(byte algorithm) throws CryptoException {
 		return new vRandomData();
 	}
