@@ -37,8 +37,12 @@ public abstract class Cipher {
 	public static final byte MODE_DECRYPT = 1;
 	public static final byte MODE_ENCRYPT = 2;
 
-	protected Cipher() {
-	}
+	protected Cipher() {}
+	public abstract void init(Key theKey, byte theMode) throws CryptoException;
+	public abstract void init(Key theKey, byte theMode, byte[] bArray, short bOff, short bLen) throws CryptoException;
+	public abstract byte getAlgorithm();
+	public abstract short doFinal(byte[] inBuff, short inOffset, short inLength, byte[] outBuff, short outOffset) throws CryptoException;
+	public abstract short update(byte[] inBuff, short inOffset, short inLength, byte[] outBuff, short outOffset) throws CryptoException;
 
 	public static final Cipher getInstance(byte algorithm, boolean externalAccess) throws CryptoException {
 		if (externalAccess) {
@@ -46,10 +50,4 @@ public abstract class Cipher {
 		}
 		return new vCipher(algorithm);
 	}
-
-	public abstract void init(Key theKey, byte theMode) throws CryptoException;
-	public abstract void init(Key theKey, byte theMode, byte[] bArray, short bOff, short bLen) throws CryptoException;
-	public abstract byte getAlgorithm();
-	public abstract short doFinal(byte[] inBuff, short inOffset, short inLength, byte[] outBuff, short outOffset) throws CryptoException;
-	public abstract short update(byte[] inBuff, short inOffset, short inLength, byte[] outBuff, short outOffset) throws CryptoException;
 }

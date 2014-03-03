@@ -20,17 +20,18 @@ public abstract class MessageDigest {
 	public static final byte LENGTH_SHA_224 = 28; // 3.0.1
 
 
-	protected MessageDigest() { }
+	protected MessageDigest() {}
 	public abstract byte getAlgorithm();
 	public abstract byte getLength();
 	public abstract short doFinal(byte[] inBuff, short inOffset, short inLength, byte[] outBuff, short outOffset);
 	public abstract void update(byte[] inBuff, short inOffset, short inLength);
 	public abstract void reset();
-	// 2.2.2
+
 	public static final InitializedMessageDigest getInitializedMessageDigestInstance(byte algorithm, boolean externalAccess) throws CryptoException {
 		CryptoException.throwIt(CryptoException.NO_SUCH_ALGORITHM);
 		return null;
 	}
+
 	public static final MessageDigest getInstance(byte algorithm, boolean externalAccess) throws CryptoException {
 		if (externalAccess) {
 			CryptoException.throwIt(CryptoException.NO_SUCH_ALGORITHM);

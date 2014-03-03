@@ -11,6 +11,6 @@ public abstract class RandomData {
 	public abstract void setSeed(byte[] buffer, short offset, short length);
 
 	public static final RandomData getInstance(byte algorithm) throws CryptoException {
-		return new vRandomData();
+		return new vRandomData(algorithm);
 	}
 }
