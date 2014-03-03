@@ -29,6 +29,9 @@ public final class vCipher extends javacardx.crypto.Cipher {
 			case ALG_RSA_PKCS1:
 				cipher = javax.crypto.Cipher.getInstance("RSA/ECB/PKCS1Padding", VRE.provider);
 				break;
+			case ALG_RSA_PKCS1_OAEP:
+				cipher = javax.crypto.Cipher.getInstance("RSA/ECB/OAEPPadding", VRE.provider);
+				break;
 			default:
 				CryptoException.throwIt(CryptoException.NO_SUCH_ALGORITHM);
 				break;
@@ -48,14 +51,14 @@ public final class vCipher extends javacardx.crypto.Cipher {
 		}
 
 		try {
-			int mode = 0;
+			int jce_mode = 0;
 			if (theMode == MODE_ENCRYPT)
-				mode = Cipher.ENCRYPT_MODE;
+				jce_mode = Cipher.ENCRYPT_MODE;
 			else if (theMode == MODE_DECRYPT)
-				mode = Cipher.DECRYPT_MODE;
+				jce_mode = Cipher.DECRYPT_MODE;
 			else
 				CryptoException.throwIt(CryptoException.ILLEGAL_VALUE);
-			cipher.init(mode, ((vKey) theKey).jce());
+			cipher.init(jce_mode, ((vKey) theKey).jce());
 		} catch (InvalidKeyException e) {
 			if (VRE.debugMode) {
 				e.printStackTrace();
