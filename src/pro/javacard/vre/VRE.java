@@ -27,10 +27,6 @@ import javacard.framework.UserException;
 import javacard.security.CryptoException;
 import javacardx.apdu.ExtendedLength;
 
-import javax.smartcardio.ATR;
-import javax.smartcardio.CommandAPDU;
-import javax.smartcardio.ResponseAPDU;
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
@@ -106,11 +102,11 @@ public class VRE {
 		VRE.instance = instance;
 	}
 
-	public void setATR(ATR atr) {
-		this.atr = atr.getBytes();
+	public void setATR(byte[] atr) {
+		this.atr = atr; // TODO: maybe copy ?
 	}
-	public ATR getATR() {
-		return new ATR(atr);
+	public byte[] getATR() {
+		return atr;
 	}
 
 	public byte getProtocol() {
@@ -131,13 +127,8 @@ public class VRE {
 		try {
 			Method install = applet.getMethod("install", new Class[]{byte[].class, short.class, byte.class});
 			install.invoke(null, new Object[]{buff, new Short(offset), new Byte(len)});
-		} catch (InvocationTargetException e) {
+		} catch (InvocationTargetException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException e) {
 			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			throw new RuntimeException("This is no applet!");
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException("This is no applet!");
-		} catch (IllegalArgumentException e) {
 			throw new RuntimeException("This is no applet!");
 		}
 	}
@@ -199,16 +190,19 @@ public class VRE {
 		return selected;
 	}
 
-	public ResponseAPDU transmit(CommandAPDU apdu) throws javax.smartcardio.CardException {
+	public byte[] transmit(byte[] apdu) {
 		APDU ref = getInstance().apdu;
 
 		Applet app = installed.get(currentApplet);
-		ref.fromCommandAPDU(apdu);
+		ref.bb.rewind();
+		ref.bb.put(apdu);
+		ref.bbin = ref.bb.duplicate();
+		// So that any output would go back to the real buffer
 		ref.bb.rewind();
 
 		// Refuse to work with extended APDU-s unless...
 		if (!currentIsExtended() && ref.isExtendedAPDU()) {
-			throw new javax.smartcardio.CardException("Applet does not do extended APDU!");
+			throw new RuntimeException("Applet does not do extended APDU!");
 		}
 		System.out.println(app);
 		try {
@@ -232,8 +226,7 @@ public class VRE {
 		byte[] copy = new byte[ref.bb.position()];
 		ref.bb.rewind();
 		ref.bb.get(copy);
-		ResponseAPDU resp = new ResponseAPDU(copy);
-		return resp;
+		return copy;
 	}
 
 	public boolean currentIsExtended() {

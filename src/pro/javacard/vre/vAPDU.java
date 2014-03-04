@@ -7,8 +7,6 @@ import javacard.framework.APDU;
 import javacard.framework.APDUException;
 import javacard.framework.ISO7816;
 
-import javax.smartcardio.CommandAPDU;
-
 // translated CommandAPDU/ResponseAPDU and byte arrays into VRE objects
 // Instance of this class is fed to Applet.process()
 // This class needs seom spec-love.
@@ -143,12 +141,6 @@ public class vAPDU {
 	}
 
 	// Internal helpers
-	protected void fromCommandAPDU(CommandAPDU apdu) {
-		bb.rewind();
-		bb.put(apdu.getBytes());
-		bbin = bb.duplicate();
-	}
-
 	protected boolean isExtendedAPDU() {
 		if (bbin.position() > 6 && buffer[ISO7816.OFFSET_LC] == 0x00)
 			return true;

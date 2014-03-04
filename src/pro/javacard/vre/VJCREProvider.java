@@ -124,7 +124,7 @@ public class VJCREProvider extends Provider {
 					@Override
 					public ATR getATR() {
 						// for OPSystem.setATRHistBytes()
-						return vre.getATR();
+						return new ATR(vre.getATR());
 					}
 
 					@Override
@@ -172,13 +172,16 @@ public class VJCREProvider extends Provider {
 
 						@Override
 						public ResponseAPDU transmit(CommandAPDU apdu) throws CardException {
-							return vre.transmit(apdu);
+							return new ResponseAPDU(vre.transmit(apdu.getBytes()));
 						}
 
 						@Override
 						public int transmit(ByteBuffer arg0, ByteBuffer arg1) throws CardException {
-							// TODO Auto-generated method stub
-							return 0;
+							byte[] cmd = new byte[arg0.remaining()];
+							arg0.get(cmd);
+							byte[] resp = vre.transmit(cmd);
+							arg1.put(resp);
+							return resp.length;
 						}
 					}
 				}
