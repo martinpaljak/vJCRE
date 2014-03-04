@@ -19,14 +19,44 @@ public class OPSystem {
 	public static byte getCardContentState() {
 		return APPLET_SELECTABLE;
 	}
+
 	public static boolean setATRHistBytes(byte[] buffer, short bOffset, byte bLength) {
 		return false;
 	}
+
 	public static byte getCardManagerState() {
 		return CARD_OP_READY;
 	}
 
 	public static void getCPLCData(APDU apdu, short apdu_offset, short cplc_offset, short length) {
+	}
+
+	public static ProviderSecurityDomain getSecurityDomain() {
+		return null;
+	}
+
+	static byte getTriesRemaining() {
+		return 0;
+	}
+
+	public static boolean lockCardManager() {
+		return false;
+	}
+
+	public static boolean setCardContentState(byte state) {
+		return false;
+	}
+
+	public static boolean setPin(APDU apdu, short offset) {
+		return false;
+	}
+
+	public static boolean terminateCardManager() {
+		return false;
+	}
+
+	public static boolean verifyPin(APDU apdu, short offset) {
+		return false;
 
 	}
 }

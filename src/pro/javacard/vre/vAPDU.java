@@ -42,6 +42,13 @@ public class vAPDU {
 		return 0;
 	}
 
+	public static short getOutBlockSize() {
+		if (getProtocol() == APDU.PROTOCOL_T0) {
+			return 258;
+		}
+		return Short.MAX_VALUE;
+	}
+
 	// FIXME: get actual Le if exists.
 	public short setOutgoing() throws APDUException {
 		state = APDU.STATE_OUTGOING;
@@ -115,6 +122,25 @@ public class vAPDU {
 
 	public static void waitExtension() throws APDUException {
 		// Do nothing. Maybe APDUException.ILLEGAL_USE ?
+	}
+	public boolean isCommandChainingCLA() {
+		return (buffer[ISO7816.OFFSET_CLA] & 0x10) != 0;
+	}
+	public boolean isSecureMessagingCLA() {
+		return (buffer[ISO7816.OFFSET_CLA] & 0x2C) != 0;
+	}
+	public boolean isISOInterindustryCLA() {
+		return (buffer[ISO7816.OFFSET_CLA] & 0x80) == 0;
+	}
+	public short getIncomingLength() {
+		if (isExtendedAPDU())
+			return getExtendedLc();
+		return (short) (buffer[ISO7816.OFFSET_LC] & 0x00FF);
+	}
+	public short getOffsetCdata() {
+		if (isExtendedAPDU())
+			return 7;
+		return 5;
 	}
 
 	// Internal helpers

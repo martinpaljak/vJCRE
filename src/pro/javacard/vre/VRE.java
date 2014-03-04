@@ -354,7 +354,7 @@ public class VRE {
 		getInstance().setMemoryReference(array, event);
 		return array;
 	}
-	public static Object[] makeObjectArray(short length, byte event) {
+	public static Object[] makeTransientObjectArray(short length, byte event) {
 		Object[] array = new Object[length];
 		getInstance().setMemoryReference(array, event);
 		return array;
