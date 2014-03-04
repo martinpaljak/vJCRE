@@ -2,6 +2,7 @@ package javacard.framework;
 
 import pro.javacard.vre.VRE;
 
+@SuppressWarnings("serial")
 public class PINException extends CardRuntimeException {
 
 	public static final short ILLEGAL_VALUE = 1;

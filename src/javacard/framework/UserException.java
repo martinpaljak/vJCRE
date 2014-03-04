@@ -2,6 +2,7 @@ package javacard.framework;
 
 import pro.javacard.vre.VRE;
 
+@SuppressWarnings("serial")
 public class UserException extends CardException {
 
 	public UserException(short reason) {
