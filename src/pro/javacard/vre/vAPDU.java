@@ -1,14 +1,13 @@
 package pro.javacard.vre;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 import javacard.framework.APDU;
 import javacard.framework.APDUException;
 import javacard.framework.ISO7816;
 
 import javax.smartcardio.CommandAPDU;
-
-import org.bouncycastle.util.Arrays;
 
 // translated CommandAPDU/ResponseAPDU and byte arrays into VRE objects
 // Instance of this class is fed to Applet.process()
