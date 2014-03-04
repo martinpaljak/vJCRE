@@ -1,7 +1,6 @@
 -injars build
 -injars lib/bcpkix-jdk15on-150.jar(!META-INF/*)
 -injars lib/kryo-2.23.0.jar(!META-INF/*)
--injars lib/gp.jar(!META-INF/*)
 -injars lib/objenesis-2.1.jar(!META-INF/*)
 
 -libraryjars lib/bcprov-jdk15on-150.jar

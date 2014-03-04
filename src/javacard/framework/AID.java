@@ -3,6 +3,14 @@ package javacard.framework;
 
 public final class AID extends pro.javacard.vre.vAID {
 
+	public AID(byte bArray[], short offset, byte length) throws SystemException, NullPointerException, ArrayIndexOutOfBoundsException, SecurityException {
+		if (length < 5 || length > 16) {
+			SystemException.throwIt(SystemException.ILLEGAL_VALUE);
+		}
+		aid = new byte[length];
+		Util.arrayCopy(bArray, offset, aid, (short) 0, length);
+	}
+
 	public final byte getBytes(byte dest[], short offset) throws NullPointerException, ArrayIndexOutOfBoundsException, SecurityException {
 		Util.arrayCopy(aid, (short) 0, dest, offset, (short) aid.length);
 		return (byte) aid.length;

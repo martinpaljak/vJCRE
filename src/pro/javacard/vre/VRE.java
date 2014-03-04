@@ -52,16 +52,16 @@ public class VRE {
 	private transient static VRE instance = null;
 
 	// AID-s of important applets.
-	private vAID currentApplet = null;
-	private vAID previousApplet = null;
-	private vAID defaultApplet = null;
+	private AID currentApplet = null;
+	private AID previousApplet = null;
+	private AID defaultApplet = null;
 
 	// JCRE technical details
 	@SuppressWarnings("rawtypes")
 	// Loaded applets
-	private HashMap<vAID, Class> loaded = new HashMap<vAID, Class>();
+	private HashMap<AID, Class> loaded = new HashMap<AID, Class>();
 	// installed (registered) applets
-	private HashMap<vAID, Applet> installed = new HashMap<vAID, Applet>();
+	private HashMap<AID, Applet> installed = new HashMap<AID, Applet>();
 
 	// Memory slices. TODO: add DESELECT is applet-specific?
 	private ArrayList resetSlices = new ArrayList();
@@ -145,7 +145,7 @@ public class VRE {
 		install(app, instdata, (short)0, (byte) instdata.length);
 	}
 
-	public void install(vAID applet, boolean isDefault) {
+	public void install(AID applet, boolean isDefault) {
 		if (isDefault) {
 			defaultApplet = applet;
 		}
@@ -154,7 +154,7 @@ public class VRE {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void load(Class applet, vAID defaultAID) {
+	public void load(Class applet, AID defaultAID) {
 		log("LOAD     " + applet.getName() + " with AID " + defaultAID);
 		loaded.put(defaultAID, applet);
 	}
@@ -164,7 +164,7 @@ public class VRE {
 		if (length < 5 || length > 16) {
 			SystemException.throwIt(SystemException.ILLEGAL_VALUE);
 		}
-		vAID instanceAID = new vAID(buffer, offset, length);
+		AID instanceAID = new AID(buffer, offset, length);
 		log("REGISTER " + applet.getClass().getName() + " with AID " + instanceAID);
 
 		installed.put(instanceAID, applet);
@@ -178,7 +178,7 @@ public class VRE {
 
 
 	// Select applet
-	public boolean select(vAID aid) {
+	public boolean select(AID aid) {
 		if (!installed.containsKey(aid)) {
 			return false;
 		}
@@ -355,11 +355,11 @@ public class VRE {
 	public static short getVersion() {return 0x0202;}
 	public static AID getAID() {return getInstance().currentApplet.jc();}
 	public static AID lookupAID(byte[] buffer, short offset, byte length) {
-		vAID q = new vAID(buffer, offset, length);
+		AID q = new AID(buffer, offset, length);
 		// get the VRE-owned instance
-		for (vAID a: getInstance().installed.keySet()) {
+		for (AID a: getInstance().installed.keySet()) {
 			if (q.equals(a))
-				return a.jc();
+				return a;
 		}
 		return null;
 	}

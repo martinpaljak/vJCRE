@@ -4,7 +4,6 @@
   <!-- Build the software -->
   <path id="build.classpath">
     <pathelement location="lib/bcprov-jdk15on-150.jar"/>
-    <pathelement location="lib/gp.jar"/>
     <pathelement location="lib/bcpkix-jdk15on-150.jar"/>
     <pathelement location="lib/kryo-2.23.0.jar"/>
     <pathelement location="lib/objenesis-2.1.jar"/>
@@ -17,14 +16,16 @@
     </javac>
   </target>
   <!-- Package it into a nice little JAR -->
-  <target name="dist" depends="compile" description="generate the distribution">
+  <target name="dist" depends="compile">
+    <jar destfile="vjcre.jar" level="9" basedir="build"/>
+  </target>
+  <target name="all" depends="dist" description="generate the distribution">
     <java classname="proguard.ProGuard" fork="true" failonerror="true">
       <arg line="@vjcre.pro"/>
       <classpath>
         <pathelement location="ext/proguard.jar"/>
       </classpath>
     </java>
-    <jar destfile="vjcre.jar" level="9" basedir="build"/>
   </target>
   <!-- Clean the source tree -->
   <target name="clean" description="clean up">

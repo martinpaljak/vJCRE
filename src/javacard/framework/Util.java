@@ -1,8 +1,6 @@
 package javacard.framework;
 
-import openkms.gp.GPUtils;
-import pro.javacard.vre.VRE;
-
+import pro.javacard.vre.Misc;
 
 public class Util {
 
@@ -11,12 +9,6 @@ public class Util {
 	}
 
 	public static final short arrayCopyNonAtomic(byte src[], short srcOff, byte dest[], short destOff, short length) throws ArrayIndexOutOfBoundsException, NullPointerException {
-		if (VRE.debugMode) {
-			System.out.println(GPUtils.byteArrayToString(src));
-			System.out.println(GPUtils.byteArrayToString(dest));
-			System.out.println(srcOff + " " + destOff + " " + length);
-		}
-
 		System.arraycopy(src, srcOff, dest, destOff, length);
 		return (short) (destOff + length);
 	}
@@ -29,6 +21,10 @@ public class Util {
 	}
 
 	public static final byte arrayCompare(byte src[], short srcOff, byte dest[], short destOff, short length) throws ArrayIndexOutOfBoundsException, NullPointerException {
+		System.out.println(Misc.encodeHexString(src));
+		System.out.println(Misc.encodeHexString(dest));
+		System.out.println("CMP " + srcOff + " " + destOff + " " + length);
+
 		if (srcOff < 0 || destOff < 0 || length < 0) {
 			throw new ArrayIndexOutOfBoundsException();
 		}

@@ -9,25 +9,17 @@ import javacard.framework.Util;
 import openkms.gp.GPUtils;
 
 public class vAID {
-	protected byte aid[];
+	protected byte aid [];
 
 	protected vAID() {}
-
-	public vAID(byte bArray[], short offset, byte length) throws SystemException, NullPointerException, ArrayIndexOutOfBoundsException, SecurityException {
-		if (length < 5 || length > 16) {
-			SystemException.throwIt(SystemException.ILLEGAL_VALUE);
-		}
-		aid = new byte[length];
-		Util.arrayCopy(bArray, offset, aid, (short) 0, length);
-	}
 
 	// These are for internal use.
 	public final byte[] getBytes() {
 		return aid;
 	}
 
-	public vAID(byte[] aid) {
-		this(aid, (short) 0, (byte) aid.length);
+	public static AID fromBytes(byte[] aid) {
+		return new AID(aid, (short) 0, (byte) aid.length);
 	}
 
 	public final int hashCode() {
@@ -54,6 +46,6 @@ public class vAID {
 	}
 
 	public String toString() {
-		return GPUtils.byteArrayToString(aid);
+		return Misc.encodeHexString(aid);
 	}
 }
