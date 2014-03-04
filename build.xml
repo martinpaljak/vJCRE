@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="vJCRE" default="dist" basedir=".">
+  <description>ANT build file for vJCRE</description>
+  <!-- Build the software -->
+  <path id="build.classpath">
+    <pathelement location="lib/bcprov-jdk15on-150.jar"/>
+    <pathelement location="lib/gp.jar"/>
+    <pathelement location="lib/bcpkix-jdk15on-150.jar"/>
+    <pathelement location="lib/kryo-2.23.0.jar"/>
+    <pathelement location="lib/objenesis-2.1.jar"/>
+  </path>
+  <target name="compile" description="compile the source">
+    <mkdir dir="build"/>
+    <javac srcdir="src" destdir="build" includeantruntime="false" excludes="*.java" target="1.7" debug="true" debuglevel="lines,vars,source">
+      <compilerarg value="-Xlint"/>
+      <classpath refid="build.classpath"/>
+    </javac>
+  </target>
+  <!-- Package it into a nice little JAR -->
+  <target name="dist" depends="compile" description="generate the distribution">
+    <java classname="proguard.ProGuard" fork="true" failonerror="true">
+      <arg line="@vjcre.pro"/>
+      <classpath>
+        <pathelement location="ext/proguard.jar"/>
+      </classpath>
+    </java>
+    <jar destfile="vjcre.jar" level="9" basedir="build"/>
+  </target>
+  <!-- Clean the source tree -->
+  <target name="clean" description="clean up">
+    <delete dir="build"/>
+    <delete file="vjcre.jar"/>
+  </target>
+</project>
