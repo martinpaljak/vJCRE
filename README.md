@@ -1,4 +1,4 @@
-# import pro.javacard.VRE;
+# import pro.javacard.vre.*;
 > Focus on running **existing code** in a **modern container**, instead of emulating an old environment to the dumbest details. Fully **open source**!
 
 vJCRE is a vritual Java Card Runtime Environment that allows to run Java code targeting the smart card platform inside a standard desktop Java virtual machine. Ideal for fast development, testing or experimentation.
