@@ -29,8 +29,7 @@ vJCRE is a vritual Java Card Runtime Environment that allows to run Java code ta
  * Services
  * Logical channels
 * Future versions
- * More algorithms
- * JavaCard 3.0.X features
+ * More algorithms, including JavaCard 3.0.X features
  * Multiple independent VJCRE instances in a single VM
  * Saving and loading VM instances (real "virtual cards")
 * Works great with the rest of the open source smart card stack.
@@ -60,6 +59,7 @@ Version 0.1 will be released early March 2014 together with [FakeEstEID](https:/
 * jCardSim - https://github.com/licel/jcardsim
  * JavaCard 2.2.1, T=0 only
  * Apache license (Also in JC API classes???)
+ * Currently implements more algorithms
 
 #### Related projects
 * AlgTest - https://github.com/petrs/AlgTest
