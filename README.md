@@ -38,16 +38,17 @@ vJCRE is a vritual Java Card Runtime Environment that allows to run Java code ta
 
 # Usage
 
-        import pro.javacard.*;
+```java
+import pro.javacard.*;
         
-        VRE vre = new VRE();
-        AID aid = new AID(FakeEstEIDApplet.aid);
-        vre.load(FakeEstEIDApplet.class, aid); // Load the applet with the specified AID
-        vre.install(aid, default); // Make a default selected instance of the applet with same AID
-        Security.addProvider(new SmartCardIOProvider());
-        TerminalFactory tf = TerminalFactory.getInstance("PC/SC", vre, SmartCardIOProvider.PROVIDER_NAME);
-        CardTerminals terms = tf.terminals();
-        // Now use javax.smartcardio as you would do when talking to a real JavaCard
+VRE vre = VRE.getInstance();
+AID aid = new AID(FakeEstEIDApplet.aid);
+vre.load(FakeEstEIDApplet.class, aid); // Load the applet with the specified AID
+vre.install(aid, default); // Make a default selected instance of the applet with same AID
+TerminalFactory tf = TerminalFactory.getInstance("PC/SC", vre, new VJCREProvider());
+CardTerminals terms = tf.terminals();
+// Now use javax.smartcardio as you would do when talking to a real smart card
+```
 
 # Get it now!
 Version 0.1 will be released early March 2014 together with [FakeEstEID](https://github.com/martinpaljak/AppletPlayground/wiki/FakeEstEID) [Android version](https://github.com/martinpaljak/mobiil-idkaart#mobile-id-as-esteid-over-nfc). Until that time feel free to look around in the repository.
