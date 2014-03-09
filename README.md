@@ -13,14 +13,14 @@ vJCRE is a vritual Java Card Runtime Environment that allows to run Java code ta
  * Generic `byte[]` exchange, like [Android Host Card Emulation](http://developer.android.com/guide/topics/connectivity/nfc/hce.html)
 * JavaCard 2.2.2+, usage of Extended APDU encouraged
 * [HostApduService](https://developer.android.com/reference/android/nfc/cardemulation/HostApduService.html) proxy for Android
-* Includes all essential interfaces and abstract classes up to JavaCard v3.0.4:
-  * `javacard.framework.*`
-  * `javacard.security.*`
-  * `javacardx.apdu.*`
-  * `javacardx.crypto.*`
+* Includes all packages with essential interfaces and abstract classes up to JavaCard v3.0.4:
+ * `javacard.framework.*`
+ * `javacard.security.*`
+ * `javacardx.apdu.*`
+ * `javacardx.crypto.*`
 * Simple, thin and modular codebase to the finest extent possible.
-  * Minimal one-liner pollution in `javacard*.*`. The only allowed import is from pro.javacard.vre.*;
-  * No Javadoc or license for API specification. Go read the original API docs. *([hint](http://www.win.tue.nl/pinpasjc/docs/apis/jc222/overview-summary.html))*
+ * Minimal one-liner pollution in `javacard*.*`. The only allowed import is from pro.javacard.vre.*;
+ * No Javadoc or license for API specification. Go read the original API docs. *([hint](http://www.win.tue.nl/pinpasjc/docs/apis/jc222/overview-summary.html))*
 * Implements necessary JCSystem and APDU, cryptography provided either by standard JCE or [BouncyCastle](http://bouncycastle.org/java.html).
 * Applet management interface, not unlike [GlobalPlatform](https://github.com/martinpaljak/GlobalPlatform#globalplatform-from-openkms)
 * No support for:
