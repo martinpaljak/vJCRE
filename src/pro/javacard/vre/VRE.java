@@ -185,10 +185,17 @@ public class VRE {
 		if (!installed.containsKey(aid)) {
 			return false;
 		}
+		if (currentApplet != null && installed.containsKey(currentApplet)) {
+			Applet current = installed.get(currentApplet);
+			current.deselect();
+		}
 		Applet app = installed.get(aid);
-		boolean selected =  app.select();
-		if (selected)
+		boolean selected = app.select();
+		if (selected) {
+			if (currentApplet != null)
+				previousApplet = currentApplet;
 			currentApplet = aid;
+		}
 		log(aid + (selected?" SELECTED" : "NOT SELECTED"));
 		return selected;
 	}
@@ -237,12 +244,11 @@ public class VRE {
 		return (app instanceof ExtendedLength);
 	}
 
-	// Load/reastore
+	// Load/restore
 	public void storeVM(File f) throws IOException {
 		Kryo kryo = new Kryo();
 		kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
 		Output o = new Output(new FileOutputStream(f));
-
 		kryo.writeClassAndObject(o, instance);
 		o.close();
 	}
@@ -254,13 +260,21 @@ public class VRE {
 		Input input = new Input(s);
 		Object inst = kryo.readClassAndObject(input);
 		input.close();
-		if (inst instanceof VRE)
+		if (inst != null && inst instanceof VRE) {
 			setInstance((VRE)inst);
-		System.out.println("Loaded " + inst.getClass().getCanonicalName());
+			System.out.println("Loaded " + inst.getClass().getCanonicalName());
+		}
 	}
 
 
 	public void reset() {
+		previousApplet = null;
+		if (defaultApplet != null) {
+			currentApplet = defaultApplet;
+		} else {
+			currentApplet = null;
+		}
+
 		vSystemException.setReason((short) 0);
 		vAPDUException.setReason((short) 0);
 		vCardException.setReason((short) 0);

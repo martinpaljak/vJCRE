@@ -45,7 +45,7 @@ public class vRSAPublicKey extends vKey implements javacard.security.RSAPublicKe
 			RSAPublicKeySpec spec = new RSAPublicKeySpec(modulus, publicExponent);
 			KeyFactory kf = KeyFactory.getInstance("RSA", VRE.provider);
 			RSAPublicKey k = (RSAPublicKey) kf.generatePublic(spec);
-			return (java.security.interfaces.RSAPublicKey) k;
+			return k;
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchProviderException e) {
 			throw new RuntimeException(e);
 		}

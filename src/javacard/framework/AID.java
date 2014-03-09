@@ -35,7 +35,7 @@ public final class AID extends pro.javacard.vre.vAID {
 			len = (byte) (aid.length - aidOffset);
 		}
 		Util.arrayCopy(aid, aidOffset, dest, oOffset, len);
-		return (byte) len;
+		return len;
 	}
 
 	public final boolean RIDEquals(AID otherAID) throws SecurityException {
