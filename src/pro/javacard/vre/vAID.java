@@ -4,14 +4,9 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 import javacard.framework.AID;
-import javacard.framework.SystemException;
-import javacard.framework.Util;
-import openkms.gp.GPUtils;
 
 public class vAID {
 	protected byte aid [];
-
-	protected vAID() {}
 
 	// These are for internal use.
 	public final byte[] getBytes() {
@@ -39,10 +34,6 @@ public class vAID {
 			return false;
 		}
 		return Arrays.equals(aid, other.aid);
-	}
-
-	public AID jc() {
-		return (AID) this;
 	}
 
 	public String toString() {

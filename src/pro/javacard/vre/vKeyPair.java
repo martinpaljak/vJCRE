@@ -16,8 +16,6 @@ import javacard.security.KeyPair;
 import javacard.security.PrivateKey;
 import javacard.security.PublicKey;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
 public class vKeyPair {
 	PrivateKey priv;
 	PublicKey pub;
@@ -29,7 +27,7 @@ public class vKeyPair {
 			// Generate a key and copy over the material.
 			if (pub.getType() == KeyBuilder.TYPE_RSA_PUBLIC) {
 				KeyPairGenerator keyGen;
-				keyGen = KeyPairGenerator.getInstance("RSA", BouncyCastleProvider.PROVIDER_NAME);
+				keyGen = KeyPairGenerator.getInstance("RSA", VRE.provider);
 				vRSAPublicKey vpubk = (vRSAPublicKey) pub;
 				if (vpubk.publicExponent != BigInteger.ZERO) {
 					keyGen.initialize(new RSAKeyGenParameterSpec(vpubk.getSize(), vpubk.publicExponent));

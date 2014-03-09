@@ -36,6 +36,21 @@ public abstract class Cipher {
 	public static final byte ALG_AES_ECB_PKCS5 = 27;
 	public static final byte MODE_DECRYPT = 1;
 	public static final byte MODE_ENCRYPT = 2;
+	// 3.0.4
+	public static final byte PAD_NULL = 0;
+	public static final byte PAD_NOPAD = 1;
+	public static final byte PAD_ISO9797_M1 = 2;
+	public static final byte PAD_ISO9797_M2 = 3;
+	public static final byte PAD_ISO9797_1_M1_ALG3 = 4;
+	public static final byte PAD_ISO9797_1_M2_ALG3 = 5;
+	public static final byte PAD_PKCS5 = 6;
+	public static final byte PAD_PKCS1 = 7;
+	public static final byte PAD_PKCS1_PSS = 8;
+	public static final byte PAD_PKCS1_OAEP = 9;
+	public static final byte PAD_ISO9796 = 10;
+	public static final byte PAD_ISO9796_MR = 11;
+	public static final byte PAD_RFC2409 = 12;
+
 
 	protected Cipher() {}
 	public abstract void init(Key theKey, byte theMode) throws CryptoException;

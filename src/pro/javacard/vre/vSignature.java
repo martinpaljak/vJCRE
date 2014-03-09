@@ -2,18 +2,19 @@ package pro.javacard.vre;
 
 import javacard.security.CryptoException;
 import javacard.security.Key;
-import javacard.security.Signature;
 
 
-public class vSignature extends Signature {
+public class vSignature extends javacard.security.Signature {
 
 	public vSignature(byte algorithm) {
 		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
 	public void init(Key theKey, byte theMode) throws CryptoException {
 		// TODO Auto-generated method stub
+
 
 	}
 

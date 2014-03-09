@@ -52,19 +52,20 @@ public abstract class Signature {
 	public static final byte ALG_RSA_SHA_256_PKCS1_PSS = 44;
 	public static final byte ALG_RSA_SHA_384_PKCS1_PSS = 45;
 	public static final byte ALG_RSA_SHA_512_PKCS1_PSS = 46;
+
 	// 3.0.4
 	public static final byte ALG_DES_MAC4_ISO9797_1_M1_ALG3 = 47;
 	public static final byte ALG_DES_MAC8_ISO9797_1_M1_ALG3 = 48;
 
 	// 3.0.4
-	public static final byte SIG_CIPHER_AES_MAC128 = 6;
 	public static final byte SIG_CIPHER_DES_MAC4 = 1;
 	public static final byte SIG_CIPHER_DES_MAC8 = 2;
+	public static final byte SIG_CIPHER_RSA = 3;
 	public static final byte SIG_CIPHER_DSA = 4;
 	public static final byte SIG_CIPHER_ECDSA = 5;
+	public static final byte SIG_CIPHER_AES_MAC128 = 6;
 	public static final byte SIG_CIPHER_HMAC = 7;
 	public static final byte SIG_CIPHER_KOREAN_SEED_MAC = 8;
-	public static final byte SIG_CIPHER_RSA = 3;
 
 	public static final byte MODE_SIGN = 1;
 	public static final byte MODE_VERIFY = 2;

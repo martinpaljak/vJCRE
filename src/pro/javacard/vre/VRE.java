@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javacard.framework.AID;
 import javacard.framework.APDU;
@@ -59,15 +61,15 @@ public class VRE {
 	// JCRE technical details
 	@SuppressWarnings("rawtypes")
 	// Loaded applets
-	private HashMap<AID, Class> loaded = new HashMap<AID, Class>();
+	private Map<AID, Class> loaded = new HashMap<AID, Class>();
 	// installed (registered) applets
-	private HashMap<AID, Applet> installed = new HashMap<AID, Applet>();
+	private Map<AID, Applet> installed = new HashMap<AID, Applet>();
 
 	// Memory slices. TODO: add DESELECT is applet-specific?
-	private ArrayList resetSlices = new ArrayList();
-	private ArrayList deselectSlices = new ArrayList();
+	private List resetSlices = new ArrayList();
+	private List deselectSlices = new ArrayList();
 
-	// JCRE-owned excpetion instances
+	// JCRE-owned exception instances
 	public static final SystemException vSystemException = new SystemException((short) 0);;
 	public static final APDUException vAPDUException = new APDUException((short) 0);
 	public static final CardException vCardException = new CardException((short) 0);
@@ -80,7 +82,7 @@ public class VRE {
 
 	// Technical parameters of the card connection
 	private byte protocol = APDU.PROTOCOL_T0;
-	private byte[] atr = null;
+	private byte[] atr = default_atr_bytes;
 
 	private final transient APDU apdu = new APDU();
 	public VRE() {
@@ -98,6 +100,7 @@ public class VRE {
 		return instance;
 	}
 
+	// Only supposed to be called on loading? TODO
 	public static void setInstance(VRE instance) {
 		VRE.instance = instance;
 	}
@@ -353,7 +356,7 @@ public class VRE {
 		return array;
 	}
 	public static short getVersion() {return 0x0202;}
-	public static AID getAID() {return getInstance().currentApplet.jc();}
+	public static AID getAID() {return getInstance().currentApplet;}
 	public static AID lookupAID(byte[] buffer, short offset, byte length) {
 		AID q = new AID(buffer, offset, length);
 		// get the VRE-owned instance
@@ -368,13 +371,13 @@ public class VRE {
 	public static void commitTransaction() throws TransactionException {}
 	public static byte getTransactionDepth() {return 0;}
 	public static short getUnusedCommitCapacity() {return Short.MAX_VALUE;}
-	public static AID getPreviousContextAID() {return getInstance().previousApplet.jc();}
+	public static AID getPreviousContextAID() {return getInstance().previousApplet;}
 	public static short getAvailableMemory(byte memoryType) throws SystemException {return Short.MAX_VALUE;}
 
 	// FIXME: contexts
 	public static Shareable getAppletShareableInterfaceObject(vAID serverAID, byte parameter) {
 		Applet app = getInstance().installed.get(serverAID);
-		return app.getShareableInterfaceObject(getInstance().currentApplet.jc(), parameter);
+		return app.getShareableInterfaceObject(getInstance().currentApplet, parameter);
 	};
 	public static boolean isObjectDeletionSupported() {return true;}
 	public static void requestObjectDeletion() throws SystemException {}
