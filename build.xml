@@ -1,16 +1,33 @@
 <?xml version="1.0"?>
 <project name="vJCRE" default="dist" basedir=".">
   <description>ANT build file for vJCRE</description>
+   <target name="fetch" description="fetch the dependencies">
+    <mkdir dir="lib"/>
+    <!-- Remember to update vjcre.pro and classpath as well! -->
+    <get src="http://downloads.bouncycastle.org/java/bcprov-jdk15on-154.jar" dest="lib" verbose="true" skipexisting="true"/>
+    <get src="http://downloads.bouncycastle.org/java/bcpkix-jdk15on-154.jar" dest="lib" verbose="true" skipexisting="true"/>
+    <get src="http://central.maven.org/maven2/net/sf/proguard/proguard-base/5.2.1/proguard-base-5.2.1.jar" dest="lib" verbose="true" skipexisting="true"/>
+    <checksum algorithm="SHA-256" file="lib/bcprov-jdk15on-154.jar" property="d0ae14598f9c528d2ab7bb8ed00e785a5440f692712cd362d69328aba25efb57" verifyProperty="bouncy1OK"/>
+    <checksum algorithm="SHA-256" file="lib/bcpkix-jdk15on-154.jar" property="d618dcfbf0337b91015b21d4b398175ae96382a82c7e1d6e8c657fcd236463c7" verifyProperty="bouncy2OK"/>
+    <checksum algorithm="SHA-256" file="lib/proguard-base-5.2.1.jar" property="f163bdd73c58cbc9b789ab14f5d602b4994dbd82eacb5d54b3bd2a95de63f3bf" verifyProperty="proguardOK"/>
+    <fail message="Checksum failure">
+      <condition>
+        <or>
+          <isfalse value="${bouncy1OK}"/>
+          <isfalse value="${bouncy2OK}"/>
+          <isfalse value="${proguardOK}"/>
+        </or>
+      </condition>
+    </fail>
+  </target>
   <!-- Build the software -->
   <path id="build.classpath">
-    <pathelement location="lib/bcprov-jdk15on-150.jar"/>
-    <pathelement location="lib/bcpkix-jdk15on-150.jar"/>
-    <pathelement location="lib/kryo-2.23.0.jar"/>
-    <pathelement location="lib/objenesis-2.1.jar"/>
+    <pathelement location="lib/bcprov-jdk15on-154.jar"/>
+    <pathelement location="lib/bcpkix-jdk15on-154.jar"/>
   </path>
-  <target name="compile" description="compile the source">
+  <target name="compile" description="compile the source" depends="fetch">
     <mkdir dir="build"/>
-    <javac srcdir="src" destdir="build" includeantruntime="false" excludes="*.java" target="1.7" debug="true" debuglevel="lines,vars,source">
+    <javac srcdir="src" destdir="build" includeantruntime="false" excludes="*.java" debug="true" debuglevel="lines,vars,source">
       <compilerarg value="-Xlint"/>
       <classpath refid="build.classpath"/>
     </javac>
@@ -23,7 +40,7 @@
     <java classname="proguard.ProGuard" fork="true" failonerror="true">
       <arg line="@vjcre.pro"/>
       <classpath>
-        <pathelement location="ext/proguard.jar"/>
+        <pathelement location="lib/proguard-base-5.2.1.jar"/>
       </classpath>
     </java>
   </target>

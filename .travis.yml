@@ -1,22 +1,26 @@
+sudo: false
 language: java
 jdk:
-  - oraclejdk7
-
+- oraclejdk8
 script: ant
-
 env:
   global:
-   # The next declration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "VmFGgw9Ryj85nryhEriMapZXEakDpjcaTb1SHtEa+fXYfgsw/0fPPflkiET/wr1YJzWTpzpS1U/z91QaUyt75BJR+CXEcVAQCPN9xDoLXhAdLpIM9IJvui82VAp/xz1IU+9yS3zgc7H84yHlJfoCthHSlTL2nNxr9aYsBncXKo0="
-
+  - secure: VmFGgw9Ryj85nryhEriMapZXEakDpjcaTb1SHtEa+fXYfgsw/0fPPflkiET/wr1YJzWTpzpS1U/z91QaUyt75BJR+CXEcVAQCPN9xDoLXhAdLpIM9IJvui82VAp/xz1IU+9yS3zgc7H84yHlJfoCthHSlTL2nNxr9aYsBncXKo0=
 addons:
   coverity_scan:
     project:
-      name: "martinpaljak/vJCRE"
-      description: "virtual JCRE"
+      name: martinpaljak/vJCRE
+      description: Virtual JCRE
     notification_email: martin@martinpaljak.net
-    build_command_prepend:
+    build_command_prepend: 
     build_command: ant compile
     branch_pattern: coverity
-
+deploy:
+  api-key:
+    secure: B2I+zUghBVM2qFzGhj+vEaF5II2XvQwyOlth9DzC2wGQTpcWN7Vvu+Yr8b+a7T/VLodNREBvyFVDyTCh705Ta4iBQUjuAxYDt7qeVyQoMhpzVhBys46cMfsa6vSTHFmJsz/oikyZc/+WYpsQMyppPQyYGT+vd+F/qJDAwL3zgFs=
+  provider: releases
+  file:
+    - vjcre.jar
+  skip_cleanup: true
+  on:
+    tags: true

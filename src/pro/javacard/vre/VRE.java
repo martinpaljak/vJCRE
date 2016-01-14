@@ -30,11 +30,6 @@ import javacard.security.CryptoException;
 import javacardx.apdu.ExtendedLength;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.objenesis.strategy.StdInstantiatorStrategy;
-
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 
 public class VRE {
 	public static final int API_LEVEL_222 = 222;
@@ -243,29 +238,6 @@ public class VRE {
 		Applet app = installed.get(currentApplet);
 		return (app instanceof ExtendedLength);
 	}
-
-	// Load/restore
-	public void storeVM(File f) throws IOException {
-		Kryo kryo = new Kryo();
-		kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
-		Output o = new Output(new FileOutputStream(f));
-		kryo.writeClassAndObject(o, instance);
-		o.close();
-	}
-
-	public void loadVM(File f) throws IOException, ClassNotFoundException {
-		Kryo kryo = new Kryo();
-		kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
-		FileInputStream s = new FileInputStream(f);
-		Input input = new Input(s);
-		Object inst = kryo.readClassAndObject(input);
-		input.close();
-		if (inst != null && inst instanceof VRE) {
-			setInstance((VRE)inst);
-			System.out.println("Loaded " + inst.getClass().getCanonicalName());
-		}
-	}
-
 
 	public void reset() {
 		previousApplet = null;
